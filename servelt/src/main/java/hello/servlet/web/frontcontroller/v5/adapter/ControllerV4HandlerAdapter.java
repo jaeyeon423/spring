@@ -34,9 +34,15 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
     private Map<String, String> createParamMap(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
+
         request.getParameterNames().asIterator()
-                .forEachRemaining(paramName -> paramMap.put(paramName,
-                        request.getParameter(paramName)));
+                .forEachRemaining(
+                paramName -> {
+                    System.out.println("[3 - ControllerV4HandlerAdapter]paramName = " + paramName);
+                    System.out.println("[4 - ControllerV4HandlerAdapter]request.getParameter(paramName) = " + request.getParameter(paramName));
+                    paramMap.put(paramName,request.getParameter(paramName));
+                }
+        );
         return paramMap;
     }
 }
