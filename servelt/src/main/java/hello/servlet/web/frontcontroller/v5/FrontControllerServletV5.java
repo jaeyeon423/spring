@@ -64,7 +64,7 @@ public class FrontControllerServletV5 extends HttpServlet {
         ModelView mv = adapter.handle(request, response, handler);
 
         String viewName = mv.getViewName(); // 논리 이름 (ex. new-form)
-        System.out.println("[6 - FrontControllerServletV5]viewName = " + viewName);
+//        System.out.println("[6 - FrontControllerServletV5]viewName = " + viewName);
         MyView view = viewResolver(viewName);
 
         view.render(mv.getModel(), request, response);
@@ -73,7 +73,7 @@ public class FrontControllerServletV5 extends HttpServlet {
     private MyHandlerAdapter getHandlerAdapter(Object handler) {
         for (MyHandlerAdapter adapter : handlerAdapters) {
             if(adapter.supports(handler)){
-                System.out.println("[2 - FrontControllerServletV5]adapter support ControllerV4 = " + adapter);
+//                System.out.println("[2 - FrontControllerServletV5]adapter support ControllerV4 = " + adapter);
                 return adapter;
             }
         }
@@ -82,7 +82,7 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     private Object getHandler(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        System.out.println("[1 - FrontControllerServletV5]requestURI = " + requestURI);
+//        System.out.println("[1 - FrontControllerServletV5]requestURI = " + requestURI);
         return handlerMappingMap.get(requestURI);
     }
 

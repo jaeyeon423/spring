@@ -38,8 +38,8 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
         request.getParameterNames().asIterator()
                 .forEachRemaining(
                 paramName -> {
-                    System.out.println("[3 - ControllerV4HandlerAdapter]paramName = " + paramName);
-                    System.out.println("[4 - ControllerV4HandlerAdapter]request.getParameter(paramName) = " + request.getParameter(paramName));
+//                    System.out.println("[3 - ControllerV4HandlerAdapter]paramName = " + paramName);
+//                    System.out.println("[4 - ControllerV4HandlerAdapter]request.getParameter(paramName) = " + request.getParameter(paramName));
                     paramMap.put(paramName,request.getParameter(paramName));
                 }
         );
