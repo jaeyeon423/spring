@@ -12,22 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-import static hello.jdbc.connection.ConnectionConst.*;
-
 /**
- * 트랜잭션 AOP
+ * 트랜잭션 DataSource, transactionManager 자동 생성
  */
 
 @SpringBootTest
 @Slf4j
-class MemberServiceV3_3Test {
+class MemberServiceV3_4Test {
 
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
@@ -40,19 +35,15 @@ class MemberServiceV3_3Test {
 
     @TestConfiguration
     static class TestConfig{
-        @Bean
-        DataSource dataSource(){
-            return new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        }
+        private final DataSource dataSource;
 
-        @Bean
-        PlatformTransactionManager transactionManager(){
-            return new DataSourceTransactionManager(dataSource());
+        TestConfig(DataSource dataSource) {
+            this.dataSource = dataSource;
         }
 
         @Bean
         MemberRepositoryV3 memberRepositoryV3(){
-            return new MemberRepositoryV3(dataSource());
+            return new MemberRepositoryV3(dataSource);
         }
 
         @Bean
