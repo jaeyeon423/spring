@@ -14,10 +14,10 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            List<Member> result = em.createQuery("select m from Member as m", Member.class).setFirstResult(1).setMaxResults(10) .getResultList();
-            for (Member member : result) {
-                System.out.println(member.getName());
-            }
+            Member member = new Member();
+            member.setName("E");
+
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {
