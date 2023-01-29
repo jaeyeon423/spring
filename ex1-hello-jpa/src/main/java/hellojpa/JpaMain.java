@@ -14,12 +14,20 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member();
-            member.setUsername("jaeyeon");
-            member.setHomeAddress(new Address("city", "street", "zipcode"));
-            member.setWorPeriod(new Period());
+            Address address = new Address("city", "street", "zipcode");
 
-            em.persist(member);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setHomeAddress(address);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member1");
+            member2.setHomeAddress(address);
+            em.persist(member2);
+
+            //임베디드 타입 같은 값 타입을 여러 엔티티에서 공유하면 위험
+            member1.getHomeAddress().setCity("newCity");
 
             tx.commit();
         } catch (Exception e) {
