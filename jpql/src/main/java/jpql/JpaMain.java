@@ -19,10 +19,14 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            TypedQuery<Member> query = em.createQuery("select m from Member m where m.username = :username", Member.class); // 변환 타입이 명확할 때
-            query.setParameter("username", "member1");
-            Member findMember = query.getSingleResult();
-            System.out.println("findMember = " + findMember.getUsername());
+            em.flush();
+            em.clear();
+
+            List<Team> reslt = em.createQuery("select m.team from Member m join m.team", Team.class) //join m.team 없어도 결과는 똑같지만 명시해주자.
+                    .getResultList();
+
+//            Member findMember = reslt.get(0);
+//            findMember.setUsername("jaeyeon");
 
 
             tx.commit();
