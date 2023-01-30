@@ -19,13 +19,10 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            TypedQuery<Member> query = em.createQuery("select m from Member m", Member.class); // 변환 타입이 명확할 때
-            List<Member> resultList = query.getResultList();
-            for (Member member1 : resultList) {
-                System.out.println("member1 = " + member1);
-            }
-
-            query.getSingleResult(); // 결과 값이 하나일 때
+            TypedQuery<Member> query = em.createQuery("select m from Member m where m.username = :username", Member.class); // 변환 타입이 명확할 때
+            query.setParameter("username", "member1");
+            Member findMember = query.getSingleResult();
+            System.out.println("findMember = " + findMember.getUsername());
 
 
             tx.commit();
