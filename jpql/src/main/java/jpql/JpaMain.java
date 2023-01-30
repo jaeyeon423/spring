@@ -22,8 +22,13 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            List<Team> reslt = em.createQuery("select m.team from Member m join m.team", Team.class) //join m.team 없어도 결과는 똑같지만 명시해주자.
+            List resultList = em.createQuery("select m.username, m.age from Member m")
                     .getResultList();
+            Object o = resultList.get(0);
+            Object[] result = (Object[]) o;
+
+            System.out.println("result[0] = " + result[0]);
+            System.out.println("result[1] = " + result[1]);
 
 //            Member findMember = reslt.get(0);
 //            findMember.setUsername("jaeyeon");
