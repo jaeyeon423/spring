@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -19,8 +20,12 @@ public class JpaMain {
             em.persist(member);
 
             TypedQuery<Member> query = em.createQuery("select m from Member m", Member.class); // 변환 타입이 명확할 때
-            TypedQuery<String> query2 = em.createQuery("select m.username, m.age from Member m", String.class); // 변환 타입이 명확할 때
-            Query query3 = em.createQuery("select m.username, m.age from Member m"); // 변환 타입이 명확하지 않을 때
+            List<Member> resultList = query.getResultList();
+            for (Member member1 : resultList) {
+                System.out.println("member1 = " + member1);
+            }
+
+            query.getSingleResult(); // 결과 값이 하나일 때
 
 
             tx.commit();
