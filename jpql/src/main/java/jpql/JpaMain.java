@@ -14,23 +14,29 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member = new Member();
             member.setUsername("member1");
             member.setAge(10);
+            member.setTeam(team);
+
             em.persist(member);
+
 
             em.flush();
             em.clear();
 
-            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
+            List<Member> result = em.createQuery("select m from Member m ", Member.class)
                     .getResultList();
 
-            MemberDTO memberDTO = resultList.get(0);
-            System.out.println("memberDTO.getUsername() = " + memberDTO.getUsername());
-            System.out.println("memberDTO.getAge() = " + memberDTO.getAge());
+            System.out.println("result.size() = " + result.size());
 
-//            Member findMember = reslt.get(0);
-//            findMember.setUsername("jaeyeon");
+            for (Member member1 : result) {
+                System.out.println("member1 = " + member1);
+            }
 
 
             tx.commit();
