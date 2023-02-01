@@ -14,34 +14,44 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+            Team teamA = new Team();
+            teamA.setName("teamA");
+            em.persist(teamA);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setAge(10);
-            member.setTeam(team);
-            member.setType(MemberType.ADMIN);
+            Team teamB = new Team();
+            teamB.setName("teamB");
+            em.persist(teamB);
 
-            em.persist(member);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(teamA);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            member2.setTeam(teamA);
+
+            Member member3 = new Member();
+            member3.setUsername("member2");
+            member3.setTeam(teamB);
+
+
+            em.persist(member1);
+            em.persist(member2);
+            em.persist(member3);
 
 
             em.flush();
             em.clear();
 
-            String query = "select m.username, 'HELLO', true From Member m "+
-                           "where  m.type = :userType";
-
-            List<Object[]> result = em.createQuery(query)
-                    .setParameter("userType", MemberType.ADMIN)
+            List<Member> resultList = em.createNamedQuery("Member.findByUserName", Member.class)
+                    .setParameter("username", "member1")
                     .getResultList();
 
-            for (Object[] objects : result) {
-                System.out.println("objects[0] = " + objects[0]);
-                System.out.println("objects[1] = " + objects[1]);
-                System.out.println("objects[2] = " + objects[2]);
+            System.out.println("========================================");
+            for (Member member : resultList) {
+                System.out.println("member = " + member);
             }
+
 
             tx.commit();
         } catch (Exception e) {

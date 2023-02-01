@@ -3,9 +3,12 @@ package jpql;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(
+        name = "Member.findByUserName",
+        query = "select m from Member m where m.username = :username"
+)
 public class Member {
     @Id @GeneratedValue
-    @Column(name = "MEMBER_ID")
     private Long id;
     private String username;
     private int age;
