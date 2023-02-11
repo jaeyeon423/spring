@@ -12,6 +12,9 @@ spring:
         #        show_sql: true
         format_sql: true
         default_batch_fetch_size: 100
+  profiles:
+    active: local
+    include: secret
 
 logging.level:
   org.hibernate.SQL: debug
