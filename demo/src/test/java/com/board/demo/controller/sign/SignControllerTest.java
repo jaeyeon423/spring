@@ -1,5 +1,6 @@
-package com.board.demo.controller;
+package com.board.demo.controller.sign;
 
+import com.board.demo.controller.SignController;
 import com.board.demo.dto.SignInRequest;
 import com.board.demo.dto.SignInResponse;
 import com.board.demo.dto.SignUpRequest;
@@ -25,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class SignControllerTest {
-    @InjectMocks SignController signController;
+    @InjectMocks
+    SignController signController;
     @Mock SignService signService;
     MockMvc mockMvc;
     ObjectMapper objectMapper = new ObjectMapper();
@@ -38,7 +40,7 @@ class SignControllerTest {
     @Test
     public void signUpTest() throws Exception {
         // given
-        SignUpRequest req = createSignUpRequest("email@email.com", "123456a!", "username", "nickname");
+         SignUpRequest req = createSignUpRequest("email@email.com", "123456a!", "username", "nickname");
 
         // when, then
         mockMvc.perform(

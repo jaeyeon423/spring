@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
@@ -181,7 +182,7 @@ class MemberRepositoryTest {
 
         // when
         Member foundMember = memberRepository.findById(member.getId()).orElseThrow(MemberNotFoundException::new);
-        List<MemberRole> memberRoles = foundMember.getRoles();
+        Set<MemberRole> memberRoles = foundMember.getRoles();
 
         // then
         assertThat(memberRoles.size()).isEqualTo(roles.size());

@@ -1,8 +1,10 @@
 package com.board.demo.handler;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.TextCodec;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Component
@@ -12,6 +14,9 @@ public class JwtHandler {
 
     public String createToken(String encodedKey, String subject, long maxAgeSeconds) {
         Date now = new Date();
+        System.out.println("encodedKey = " + encodedKey + " subject = " + subject + " maxAgeSeconds = " + maxAgeSeconds);
+        byte[] decode = TextCodec.BASE64.decode(encodedKey);
+        System.out.println("Arrays.toString(decode) = " + Arrays.toString(decode));
         return type + Jwts.builder()
                 .setSubject(subject)
                 .setIssuedAt(now)

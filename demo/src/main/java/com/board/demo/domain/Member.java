@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
+
 
 @Entity
 @Getter
@@ -24,7 +24,7 @@ public class Member extends EntityDate {
     @Column(nullable = false, length = 30, unique = true)
     private String email;
 
-    private String password; // 2
+    private String password;
 
     @Column(nullable = false, length = 20)
     private String username;
@@ -32,15 +32,15 @@ public class Member extends EntityDate {
     @Column(nullable = false, unique = true, length = 20)
     private String nickname;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
-    private List<MemberRole> roles;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MemberRole> roles;
 
     public Member(String email, String password, String username, String nickname, List<Role> roles) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.nickname = nickname;
-        this.roles = roles.stream().map(r -> new MemberRole(this, r)).collect(Collectors.toList());
+        this.roles = roles.stream().map(r -> new MemberRole(this, r)).collect(toSet());
     }
 
     public void updateNickname(String nickname) {

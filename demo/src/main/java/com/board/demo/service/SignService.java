@@ -12,21 +12,24 @@ import com.board.demo.exception.RoleNotFoundException;
 import com.board.demo.repository.MemberRepository;
 import com.board.demo.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Slf4j
 public class SignService {
-    private MemberRepository memberRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
-    private TokenService tokenService;
+    private final MemberRepository memberRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
+    @Transactional
     public void signUp(SignUpRequest req){
         validateSignUpInfo(req);
+
         memberRepository.save(SignUpRequest.toEntity(
                 req,
                 roleRepository.findByRoleType(RoleType.ROLE_NORMAL).orElseThrow(RoleNotFoundException::new),
@@ -38,6 +41,7 @@ public class SignService {
         Member member = memberRepository.findByEmail(req.getEmail()).orElseThrow(LoginFailureException::new);
         validatePassword(req, member); // 1
         String subject = createSubject(member); // 2
+        System.out.println("subject = " + subject);
         String accessToken = tokenService.createAccessToken(subject); // 3
         String refreshToken = tokenService.createRefreshToken(subject); // 4
         return new SignInResponse(accessToken, refreshToken); // 5
