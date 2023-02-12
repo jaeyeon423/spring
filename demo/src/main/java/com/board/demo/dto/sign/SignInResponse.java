@@ -1,4 +1,4 @@
-package com.board.demo.dto;
+package com.board.demo.dto.sign;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

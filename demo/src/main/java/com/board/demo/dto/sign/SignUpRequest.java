@@ -1,4 +1,4 @@
-package com.board.demo.dto;
+package com.board.demo.dto.sign;
 
 import com.board.demo.domain.Member;
 import com.board.demo.domain.Role;

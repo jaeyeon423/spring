@@ -1,4 +1,4 @@
-package com.board.demo.dto;
+package com.board.demo.dto.sign;
 
 public class SignInRequestFactory {
     public static SignInRequest createSignInRequest() {

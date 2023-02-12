@@ -1,4 +1,4 @@
-package com.board.demo.service;
+package com.board.demo.service.token;
 
 import com.board.demo.handler.JwtHandler;
 import lombok.RequiredArgsConstructor;

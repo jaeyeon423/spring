@@ -1,6 +1,6 @@
 package com.board.demo.dto;
 
-import org.assertj.core.api.Assertions;
+import com.board.demo.dto.sign.SignInRequest;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -8,8 +8,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
-import static com.board.demo.dto.SignInRequestFactory.createSignInRequest;
-import static com.board.demo.dto.SignInRequestFactory.createSignInRequestWithEmail;
+import static com.board.demo.dto.sign.SignInRequestFactory.createSignInRequest;
+import static com.board.demo.dto.sign.SignInRequestFactory.createSignInRequestWithEmail;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -3,15 +3,17 @@ package com.board.demo.service;
 import com.board.demo.domain.Member;
 import com.board.demo.domain.Role;
 import com.board.demo.domain.RoleType;
-import com.board.demo.dto.SignInRequest;
-import com.board.demo.dto.SignInResponse;
-import com.board.demo.dto.SignUpRequest;
+import com.board.demo.dto.sign.SignInRequest;
+import com.board.demo.dto.sign.SignInResponse;
+import com.board.demo.dto.sign.SignUpRequest;
 import com.board.demo.exception.LoginFailureException;
 import com.board.demo.exception.MemberEmailAlreadyExistsException;
 import com.board.demo.exception.MemberNicknameAlreadyExistsException;
 import com.board.demo.exception.RoleNotFoundException;
 import com.board.demo.repository.MemberRepository;
 import com.board.demo.repository.RoleRepository;
+import com.board.demo.service.sign.SignService;
+import com.board.demo.service.token.TokenService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static com.board.demo.dto.SignUpRequestFactory.createSignUpRequest;
+import static com.board.demo.dto.sign.SignUpRequestFactory.createSignUpRequest;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -40,7 +42,8 @@ class SignServiceTest {
     RoleRepository roleRepository;
     @Mock
     PasswordEncoder passwordEncoder;
-    @Mock TokenService tokenService;
+    @Mock
+    TokenService tokenService;
 
     @Test
     void signUpTest() {

@@ -1,16 +1,17 @@
-package com.board.demo.service;
+package com.board.demo.service.sign;
 
 import com.board.demo.domain.Member;
 import com.board.demo.domain.RoleType;
-import com.board.demo.dto.SignInRequest;
-import com.board.demo.dto.SignInResponse;
-import com.board.demo.dto.SignUpRequest;
+import com.board.demo.dto.sign.SignInRequest;
+import com.board.demo.dto.sign.SignInResponse;
+import com.board.demo.dto.sign.SignUpRequest;
 import com.board.demo.exception.LoginFailureException;
 import com.board.demo.exception.MemberEmailAlreadyExistsException;
 import com.board.demo.exception.MemberNicknameAlreadyExistsException;
 import com.board.demo.exception.RoleNotFoundException;
 import com.board.demo.repository.MemberRepository;
 import com.board.demo.repository.RoleRepository;
+import com.board.demo.service.token.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

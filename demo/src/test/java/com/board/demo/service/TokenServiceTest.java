@@ -1,6 +1,7 @@
 package com.board.demo.service;
 
 import com.board.demo.handler.JwtHandler;
+import com.board.demo.service.token.TokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +15,8 @@ import static org.mockito.BDDMockito.*;
 @ExtendWith(MockitoExtension.class)
 class TokenServiceTest {
 
-    @InjectMocks TokenService tokenService;
+    @InjectMocks
+    TokenService tokenService;
     @Mock JwtHandler jwtHandler;
 
     @BeforeEach

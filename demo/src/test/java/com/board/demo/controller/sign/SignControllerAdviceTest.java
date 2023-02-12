@@ -1,14 +1,13 @@
 package com.board.demo.controller.sign;
 
 import com.board.demo.advice.ExceptionAdvice;
-import com.board.demo.controller.SignController;
-import com.board.demo.dto.SignInRequest;
-import com.board.demo.dto.SignUpRequest;
+import com.board.demo.dto.sign.SignInRequest;
+import com.board.demo.dto.sign.SignUpRequest;
 import com.board.demo.exception.LoginFailureException;
 import com.board.demo.exception.MemberEmailAlreadyExistsException;
 import com.board.demo.exception.MemberNicknameAlreadyExistsException;
 import com.board.demo.exception.RoleNotFoundException;
-import com.board.demo.service.SignService;
+import com.board.demo.service.sign.SignService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
