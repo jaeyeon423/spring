@@ -3,13 +3,11 @@ package com.board.demo.service;
 import com.board.demo.domain.Member;
 import com.board.demo.domain.Role;
 import com.board.demo.domain.RoleType;
+import com.board.demo.dto.sign.RefreshTokenResponse;
 import com.board.demo.dto.sign.SignInRequest;
 import com.board.demo.dto.sign.SignInResponse;
 import com.board.demo.dto.sign.SignUpRequest;
-import com.board.demo.exception.LoginFailureException;
-import com.board.demo.exception.MemberEmailAlreadyExistsException;
-import com.board.demo.exception.MemberNicknameAlreadyExistsException;
-import com.board.demo.exception.RoleNotFoundException;
+import com.board.demo.exception.*;
 import com.board.demo.repository.MemberRepository;
 import com.board.demo.repository.RoleRepository;
 import com.board.demo.service.sign.SignService;
@@ -124,6 +122,33 @@ class SignServiceTest {
         // when, then
         assertThatThrownBy(() -> signService.signIn(new SignInRequest("email", "password")))
                 .isInstanceOf(LoginFailureException.class);
+    }
+    @Test
+    void refreshTokenTest() {
+        // given
+        String refreshToken = "refreshToken";
+        String subject = "subject";
+        String accessToken = "accessToken";
+        given(tokenService.validateRefreshToken(refreshToken)).willReturn(true);
+        given(tokenService.extractRefreshTokenSubject(refreshToken)).willReturn(subject);
+        given(tokenService.createAccessToken(subject)).willReturn(accessToken);
+
+        // when
+        RefreshTokenResponse res = signService.refreshToken(refreshToken);
+
+        // then
+        assertThat(res.getAccessToken()).isEqualTo(accessToken);
+    }
+
+    @Test
+    void refreshTokenExceptionByInvalidTokenTest() {
+        // given
+        String refreshToken = "refreshToken";
+        given(tokenService.validateRefreshToken(refreshToken)).willReturn(false);
+
+        // when, then
+        assertThatThrownBy(() -> signService.refreshToken(refreshToken))
+                .isInstanceOf(AuthenticationEntryPointException.class);
     }
 
 

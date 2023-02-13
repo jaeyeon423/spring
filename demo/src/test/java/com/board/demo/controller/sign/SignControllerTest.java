@@ -1,5 +1,6 @@
 package com.board.demo.controller.sign;
 
+import com.board.demo.dto.sign.RefreshTokenResponse;
 import com.board.demo.dto.sign.SignInRequest;
 import com.board.demo.dto.sign.SignInResponse;
 import com.board.demo.dto.sign.SignUpRequest;
@@ -65,6 +66,23 @@ class SignControllerTest {
                 .andExpect(jsonPath("$.result.data.refreshToken").value("refresh"));
 
         verify(signService).signIn(req);
+    }
+
+    @Test
+    void refreshTokenTest() throws Exception {
+        // given
+        given(signService.refreshToken("refreshToken")).willReturn(createRefreshTokenResponse("accessToken"));
+
+        // when, then
+        mockMvc.perform(
+                        post("/api/refresh-token")
+                                .header("Authorization", "refreshToken"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result.data.accessToken").value("accessToken"));
+    }
+
+    public static RefreshTokenResponse createRefreshTokenResponse(String accessToken) {
+        return new RefreshTokenResponse(accessToken);
     }
 
 }

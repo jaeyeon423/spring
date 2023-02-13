@@ -2,13 +2,11 @@ package com.board.demo.service.sign;
 
 import com.board.demo.domain.Member;
 import com.board.demo.domain.RoleType;
+import com.board.demo.dto.sign.RefreshTokenResponse;
 import com.board.demo.dto.sign.SignInRequest;
 import com.board.demo.dto.sign.SignInResponse;
 import com.board.demo.dto.sign.SignUpRequest;
-import com.board.demo.exception.LoginFailureException;
-import com.board.demo.exception.MemberEmailAlreadyExistsException;
-import com.board.demo.exception.MemberNicknameAlreadyExistsException;
-import com.board.demo.exception.RoleNotFoundException;
+import com.board.demo.exception.*;
 import com.board.demo.repository.MemberRepository;
 import com.board.demo.repository.RoleRepository;
 import com.board.demo.service.token.TokenService;
@@ -38,6 +36,7 @@ public class SignService {
         );
     }
 
+    @Transactional(readOnly = true)
     public SignInResponse signIn(SignInRequest req) {
         Member member = memberRepository.findByEmail(req.getEmail()).orElseThrow(LoginFailureException::new);
         validatePassword(req, member); // 1
@@ -46,6 +45,19 @@ public class SignService {
         String accessToken = tokenService.createAccessToken(subject); // 3
         String refreshToken = tokenService.createRefreshToken(subject); // 4
         return new SignInResponse(accessToken, refreshToken); // 5
+    }
+
+    public RefreshTokenResponse refreshToken(String rToken) {
+        validateRefreshToken(rToken);
+        String subject = tokenService.extractRefreshTokenSubject(rToken);
+        String accessToken = tokenService.createAccessToken(subject);
+        return new RefreshTokenResponse(accessToken);
+    }
+
+    private void validateRefreshToken(String rToken) {
+        if(!tokenService.validateRefreshToken(rToken)) {
+            throw new AuthenticationEntryPointException();
+        }
     }
 
 
