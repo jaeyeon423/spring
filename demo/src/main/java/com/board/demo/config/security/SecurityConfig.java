@@ -1,7 +1,6 @@
-package com.board.demo.config;
+package com.board.demo.config.security;
 
 import com.board.demo.service.token.TokenService;
-import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -23,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/exception/**"); // 3
+        web.ignoring().mvcMatchers("/exception/**","/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**"); // 3
     }
 
     @Override
@@ -46,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // 7
                 .addFilterBefore(new JwtAuthenticationFilter(tokenService, userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

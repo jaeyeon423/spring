@@ -1,4 +1,4 @@
-package com.board.demo.config;
+package com.board.demo.config.security;
 
 import com.board.demo.domain.Member;
 import com.board.demo.repository.MemberRepository;

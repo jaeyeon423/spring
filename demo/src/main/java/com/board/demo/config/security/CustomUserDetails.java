@@ -1,4 +1,4 @@
-package com.board.demo.config;
+package com.board.demo.config.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

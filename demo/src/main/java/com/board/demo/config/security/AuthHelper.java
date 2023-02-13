@@ -1,4 +1,4 @@
-package com.board.demo.config;
+package com.board.demo.config.security;
 
 import com.board.demo.domain.RoleType;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
