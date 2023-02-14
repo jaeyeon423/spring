@@ -22,14 +22,15 @@ class MemberRepositoryTest {
 
     @Test
     public void testMember(){
-//        Member member = new Member("jaeyeon", 32);
-//        Member savedMember = memberRepository.save(member);
-//        Optional<Member> byId = memberRepository.findById(savedMember.getId());
-//        Member findMember = byId.get();
-//
-//        assertThat(findMember.getId()).isEqualTo(member.getId());
-//        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
-//        assertThat(findMember).isEqualTo(member);
+        System.out.println("memberRepository = " + memberRepository.getClass());
+        Member member = new Member("jaeyeon", 32);
+        Member savedMember = memberRepository.save(member);
+        Optional<Member> byId = memberRepository.findById(savedMember.getId());
+        Member findMember = byId.get();
+
+        assertThat(findMember.getId()).isEqualTo(member.getId());
+        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+        assertThat(findMember).isEqualTo(member);
     }
 
 }
