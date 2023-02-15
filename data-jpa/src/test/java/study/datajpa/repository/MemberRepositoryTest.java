@@ -80,4 +80,42 @@ class MemberRepositoryTest {
 
     }
 
+    @Test
+    public void namedQueryTest(){
+        //given
+        Member m1 = new Member("회원1", 10);
+        Member m2 = new Member("BBB", 12);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+        //when
+
+        List<Member> result = memberRepository.findByUsername("BBB");
+        Member findMember
+                = result.get(0);
+
+        //then
+
+        assertThat(findMember).isEqualTo(m2);
+
+
+    }
+    @Test
+    public void namedQuery2Test(){
+        //given
+        Member m1 = new Member("회원1", 10);
+        Member m2 = new Member("BBB", 12);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+        //when
+
+        List<Member> result = memberRepository.findUser("BBB", 12);
+        Member findMember = result.get(0);
+
+        //then
+
+        assertThat(findMember).isEqualTo(m2);
+
+
+    }
+
 }
