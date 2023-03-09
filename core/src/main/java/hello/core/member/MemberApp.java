@@ -1,27 +1,23 @@
-package hello.core.order;
+package hello.core.member;
 
 import hello.core.AppConfig;
-import hello.core.discount.FixDiscountPolicy;
 import hello.core.member.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class OrderApp {
-
+public class MemberApp {
     public static void main(String[] args) {
 //        AppConfig appConfig = new AppConfig();
+//        MemberService memberService = appConfig.memberService();
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
-        OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
 
-        Long memberId = 1L;
-        Member member = new Member(memberId, "memberA", Grade.VIP);
-        memberService.joinMember(member);
+        Member member1 = new Member(1L, "member1", Grade.BASIC);
+        memberService.joinMember(member1);
 
-        Order order = orderService.createOrder(memberId, member.getName(), 20000);
-
-        System.out.println(order);
+        Member findMember = memberService.findMember(1L);
+        System.out.println("member1 = " + member1.getName());
+        System.out.println("findMember = " + findMember.getName());
     }
 }
