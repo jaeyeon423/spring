@@ -1,12 +1,13 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
+import hello.jdbc.repository.MemberRepository;
 import hello.jdbc.repository.MemberRepositoryV3;
+import hello.jdbc.repository.MemberRepositoryV4_1;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
@@ -14,28 +15,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-import static hello.jdbc.connection.ConnectionConst.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @SpringBootTest
 @Slf4j
-class MemberServiceV3_3Test {
+class MemberServiceV4Test {
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
     public static final String MEMBER_EX = "ex";
     @Autowired
-    private MemberRepositoryV3 memberRepository;
+    private MemberRepository memberRepository;
     @Autowired
-    private MemberServiceV3_3 memberService;
+    private MemberServiceV4 memberService;
 
 //    @BeforeEach
 //    void before(){
@@ -51,13 +47,13 @@ class MemberServiceV3_3Test {
         private final DataSource dataSource;
 
         @Bean
-        MemberRepositoryV3 memberRepositoryV3(){
-            return new MemberRepositoryV3(dataSource);
+        MemberRepositoryV4_1 memberRepository(){
+            return new MemberRepositoryV4_1(dataSource);
         }
 
         @Bean
-        MemberServiceV3_3 memberServiceV3_3(){
-            return new MemberServiceV3_3(memberRepositoryV3());
+        MemberServiceV4 memberServiceV3_3(){
+            return new MemberServiceV4(memberRepository());
         }
     }
     @AfterEach
