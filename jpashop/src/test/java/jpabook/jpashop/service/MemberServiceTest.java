@@ -25,10 +25,10 @@ class MemberServiceTest {
         Member member = new Member();
         member.setName("jaeyeon");
 
-
         Long joinedMember = memberService.join(member);
 
         Assertions.assertThat(member).isEqualTo(memberRepository.findByName(member.getName()).get(0));
+
     }
 
     @Test
